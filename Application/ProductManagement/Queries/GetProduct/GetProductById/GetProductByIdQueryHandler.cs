@@ -12,6 +12,7 @@ namespace Application.ProductManagement.Queries.GetProduct.GetProductByCode
         {
             _productRepository = productRepository;
         }
+
         public async Task<GetProductByIdQueryResponse> Handle(GetProductByIdQueryRequest request, CancellationToken cancellationToken)
         {
             var product = await _productRepository.OfIdAsync(request.Id);
@@ -26,7 +27,7 @@ namespace Application.ProductManagement.Queries.GetProduct.GetProductByCode
                 Product = new ProductDtoModel(product.Id, product.Code, product.Name, product.UnitPrice)
             };
 
-            return respone; 
+            return respone;
         }
     }
 }

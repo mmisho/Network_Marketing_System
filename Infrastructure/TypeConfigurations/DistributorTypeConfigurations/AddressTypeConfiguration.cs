@@ -16,6 +16,12 @@ namespace Infrastructure.TypeConfigurations.DistributorTypeConfigurations
             builder.Property(x => x.AddressInfo)
                 .IsRequired()
                 .HasMaxLength(100);
+
+            builder.HasOne(d => d.Distributor)
+                .WithOne(a => a.Address)
+                .HasForeignKey<Address>(a => a.DistributorId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired();
         }
     }
 }

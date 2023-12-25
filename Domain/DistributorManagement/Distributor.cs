@@ -1,4 +1,6 @@
-﻿using Domain.DistributorManagement.Enum;
+﻿using Domain.BonusManagement;
+using Domain.DistributorManagement.Enum;
+using Domain.SaleManagement;
 using Domain.Shared;
 
 namespace Domain.DistributorManagement
@@ -9,41 +11,54 @@ namespace Domain.DistributorManagement
         {
             FirstName = string.Empty;
             LastName = string.Empty;
-            PicturePath = string.Empty;
             IdCardInfo = new IdCard();
             Contact = new Contact();
             Address = new Address();
+            Sales = new List<Sale>();
+            Bonuses = new List<Bonus>();
         }
 
-        public void Create(string firstName, string lastName, DateTime birthDate, GenderEnum gender, string picturePath,
+        public void Create(string firstName, string lastName, DateTime birthDate, GenderEnum gender, byte[]? picture,
                            IdCard idCard, Contact contact, Address address, Guid? recomendatorId)
         {
-            ValidateDistributor(firstName, lastName, birthDate, gender, picturePath, idCard, contact, address, recomendatorId);
+
+            if (idCard is null)
+            {
+                throw new ArgumentNullException($"{nameof(idCard)} cannot be null");
+            }
+
+            if (contact is null)
+            {
+                throw new ArgumentNullException($"{nameof(contact)} cannot be null");
+            }
+
+            if (address is null)
+            {
+                throw new ArgumentNullException($"{nameof(address)} cannot be null");
+            }
+
+            ValidateDistributor(firstName, lastName);
 
             FirstName = firstName;
             LastName = lastName;
             BirthDate = birthDate;
             Gender = gender;
-            PicturePath = picturePath;
+            Picture = picture;
             IdCardInfo = idCard;
             Contact = contact;
             Address = address;
             RecomendatorId = recomendatorId;
         }
 
-        public void ChangeDetails(string firstName, string lastName, DateTime birthDate, GenderEnum gender, string picturePath,
-                                  IdCard idCard, Contact contact, Address address, Guid? recomendatorId)
+        public void ChangeDetails(string firstName, string lastName, DateTime birthDate, GenderEnum gender, byte[]? picture, Guid? recomendatorId)
         {
-            ValidateDistributor(firstName, lastName, birthDate, gender, picturePath, idCard, contact, address, recomendatorId);
+            ValidateDistributor(firstName, lastName);
 
             FirstName = firstName;
             LastName = lastName;
             BirthDate = birthDate;
             Gender = gender;
-            PicturePath = picturePath;
-            IdCardInfo = idCard;
-            Contact = contact;
-            Address = address;
+            Picture = picture;
             RecomendatorId = recomendatorId;
         }
 
@@ -52,17 +67,16 @@ namespace Domain.DistributorManagement
         public string LastName { get; private set; }
         public DateTime BirthDate { get; private set; }
         public GenderEnum Gender { get; private set; }
-        public string PicturePath { get; private set; }
+        public byte[]? Picture { get; private set; }
         public virtual Distributor? Recomendator { get; private set; }
         public Guid? RecomendatorId { get; private set; }
         public virtual IdCard IdCardInfo { get; private set; }
-        public Guid IdCardInfoId { get; private set; }
         public virtual Contact Contact { get; private set; }
-        public Guid ContactId { get; private set; }
         public virtual Address Address { get; private set; }
-        public Guid AdressId { get; private set; }
+        public virtual List<Sale> Sales { get; set; }
+        public virtual List<Bonus> Bonuses { get; set; }
 
-        private void ValidateDistributor(string firstName, string lastName, DateTime birthDate, GenderEnum gender, string picturePath, IdCard idCard, Contact contact, Address address, Guid? recomendatorId)
+        private void ValidateDistributor(string firstName, string lastName)
         {
             if (string.IsNullOrEmpty(firstName))
             {
@@ -82,20 +96,6 @@ namespace Domain.DistributorManagement
             if (lastName.Length > 50)
             {
                 throw new ArgumentOutOfRangeException($"{nameof(lastName)} lenth cannot be greater than 50");
-            }
-            if (idCard is null)
-            {
-                throw new ArgumentNullException($"{nameof(idCard)} cannot be null");
-            }
-
-            if (contact is null)
-            {
-                throw new ArgumentNullException($"{nameof(contact)} cannot be null");
-            }
-
-            if (address is null)
-            {
-                throw new ArgumentNullException($"{nameof(address)} cannot be null");
             }
         }
     }

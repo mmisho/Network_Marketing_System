@@ -10,6 +10,7 @@ namespace Application.DistributorManagement.Dtos
             AddressType = address.AddressType;
             AddressInfo = address.AddressInfo;
         }
+
         public AddressTypeEnum AddressType { get; set; }
         public string AddressInfo { get; set; }
     }

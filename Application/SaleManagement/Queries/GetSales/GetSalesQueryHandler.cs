@@ -20,14 +20,15 @@ namespace Application.SaleManagement.Queries.GetSales
             var sales = await _saleRepository.Query()
                                              .Filter(request.DistributorId, x => x.DistributorId == request.DistributorId)
                                              .Filter(request.ProductCode, x => x.Product.Code == request.ProductCode)
-                                             .Filter(request.SaleDate, x => x.SaleDate == request.SaleDate).ToListAsync();
+                                             .Filter(request.SaleDate, x => x.SaleDate == request.SaleDate)
+                                             .ToListAsync();
 
             var response = new GetSalesQueryResponse
             {
                 Sales = sales.Select(x => new SaleDtoModel(x))
             };
 
-            return response;                           
+            return response;
         }
     }
 }

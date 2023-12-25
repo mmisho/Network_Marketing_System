@@ -1,5 +1,4 @@
 ﻿using Domain.DistributorManagement;
-using Domain.DistributorManagement.Enum;
 
 namespace Application.DistributorManagement.Dtos
 {
@@ -18,7 +17,7 @@ namespace Application.DistributorManagement.Dtos
                 LastName = distributor.LastName,
                 BirthDate = distributor.BirthDate,
                 Gender = distributor.Gender,
-                Picture = distributor.PicturePath,
+                Picture = distributor.Picture,
             };
 
             if (includeNavProperties)

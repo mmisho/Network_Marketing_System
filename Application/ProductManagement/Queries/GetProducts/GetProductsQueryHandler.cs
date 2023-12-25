@@ -13,6 +13,7 @@ namespace Application.ProductManagement.Queries.GetProducts
         {
             _productRepository = productRepository;
         }
+
         public async Task<GetProductsQueryResponse> Handle(GetProductsQueryRequest request, CancellationToken cancellationToken)
         {
             var products = await _productRepository.Query().ToListAsync();

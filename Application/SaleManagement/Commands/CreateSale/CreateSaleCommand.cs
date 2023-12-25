@@ -2,5 +2,5 @@
 
 namespace Application.SaleManagement.Commands.CreateSale
 {
-    public record CreateSaleCommand(Guid DistributorId, DateTime SaleDate, string ProductCode, int cost, decimal UnitPrice, decimal Price) : IRequest;
+    public record CreateSaleCommand(Guid DistributorId, DateTime SaleDate, string ProductCode, int Cost, decimal UnitPrice, decimal Price) : IRequest;
 }

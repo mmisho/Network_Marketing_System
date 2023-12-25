@@ -4,7 +4,7 @@ using Infrastructure.DataAccess;
 
 namespace Infrastructure.Repositories.DistributorManagement
 {
-    public class DistributorRepository(EFDbContext dbContext) : EFBaseRepository<EFDbContext,Distributor>(dbContext), IDistributorRepository
+    public class DistributorRepository(EFDbContext dbContext) : EFBaseRepository<EFDbContext, Distributor>(dbContext), IDistributorRepository
     {
     }
 }

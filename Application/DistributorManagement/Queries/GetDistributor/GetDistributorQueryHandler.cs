@@ -8,15 +8,16 @@ namespace Application.DistributorManagement.Queries.GetDistributor
     {
         private readonly IDistributorRepository _distributorRepository;
 
-        public GetDistributorQueryHandler( IDistributorRepository distributorRepository)
+        public GetDistributorQueryHandler(IDistributorRepository distributorRepository)
         {
             _distributorRepository = distributorRepository;
         }
+
         public async Task<GetDistributorQueryResponse> Handle(GetDistributorQueryRequest request, CancellationToken cancellationToken)
         {
             var distributor = await _distributorRepository.OfIdAsync(request.Id);
 
-            if(distributor == null)
+            if (distributor == null)
             {
                 throw new KeyNotFoundException($"Distributor was not found for Id: {request.Id}");
             }

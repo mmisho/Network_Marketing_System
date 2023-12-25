@@ -9,11 +9,14 @@ namespace Application.DistributorManagement.Commands.Delete
         private readonly IDistributorRepository _distributorRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public DeleteDistributorCommandHandler(IDistributorRepository distributorRepository, IUnitOfWork unitOfWork)
+        public DeleteDistributorCommandHandler(
+            IDistributorRepository distributorRepository,
+            IUnitOfWork unitOfWork)
         {
             _distributorRepository = distributorRepository;
             _unitOfWork = unitOfWork;
         }
+
         public async Task<Unit> Handle(DeleteDistributorCommand request, CancellationToken cancellationToken)
         {
             var distributor = await _distributorRepository.OfIdAsync(request.DistributorId);

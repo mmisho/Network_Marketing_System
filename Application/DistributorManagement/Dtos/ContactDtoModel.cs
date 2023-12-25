@@ -10,7 +10,8 @@ namespace Application.DistributorManagement.Dtos
             ContactType = contact.ContactType;
             ContactInfo = contact.ContactInfo;
         }
-        public ContactTypeEnum ContactType { get;  set; }
-        public string ContactInfo { get;  set; } = string.Empty;
+
+        public ContactTypeEnum ContactType { get; set; }
+        public string ContactInfo { get; set; } = string.Empty;
     }
 }

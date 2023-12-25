@@ -12,6 +12,28 @@ namespace Domain.DistributorManagement
 
         public void Create(ContactTypeEnum contactType, string contactInfo)
         {
+            ValidateContact(contactInfo);
+
+            ContactType = contactType;
+            ContactInfo = contactInfo;
+        }
+
+        public void ChangeDetails(ContactTypeEnum contactType, string contactInfo)
+        {
+            ValidateContact(contactInfo);
+
+            ContactType = contactType;
+            ContactInfo = contactInfo;
+        }
+
+        public override Guid Id { get; set; }
+        public ContactTypeEnum ContactType { get; private set; }
+        public string ContactInfo { get; private set; }
+        public virtual Distributor? Distributor { get; private set; }
+        public Guid DistributorId { get; private set; }
+
+        private void ValidateContact(string contactInfo)
+        {
             if (string.IsNullOrEmpty(contactInfo))
             {
                 throw new ArgumentNullException($"{nameof(contactInfo)} cannot be null or empty");
@@ -21,13 +43,6 @@ namespace Domain.DistributorManagement
             {
                 throw new ArgumentOutOfRangeException($"{nameof(contactInfo)} lenth should not be greater than 100");
             }
-
-            ContactType = contactType;
-            ContactInfo = contactInfo;
         }
-
-        public override Guid Id { get; set; }
-        public ContactTypeEnum ContactType { get; private set; }
-        public string ContactInfo { get; private set; }
     }
 }

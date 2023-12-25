@@ -21,6 +21,7 @@ namespace Application.ProductManagement.Commands.Create
             _unitOfWork = unitOfWork;
             _productService = productService;
         }
+
         public async Task<Unit> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
             await _productService.ProductCodeValidation(request.Code);

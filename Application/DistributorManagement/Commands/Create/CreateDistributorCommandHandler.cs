@@ -1,4 +1,5 @@
-﻿using Domain.DistributorManagement;
+﻿using Application.Shared.Services.DistributorServices;
+using Domain.DistributorManagement;
 using Domain.DistributorManagement.Repository;
 using Domain.Shared;
 using MediatR;
@@ -8,23 +9,29 @@ namespace Application.DistributorManagement.Commands.Create
     public class CreateDistributorCommandHandler : IRequestHandler<CreateDistributorCommand>
     {
         private readonly IDistributorRepository _distributorRepository;
+        private readonly IDistributorService _distributorService;
         private readonly IUnitOfWork _unitOfWork;
 
         public CreateDistributorCommandHandler(
             IDistributorRepository distributorRepository,
+            IDistributorService distributorService,
             IUnitOfWork unitOfWork)
         {
             _distributorRepository = distributorRepository;
+            _distributorService = distributorService;
             _unitOfWork = unitOfWork;
         }
+
         public async Task<Unit> Handle(CreateDistributorCommand request, CancellationToken cancellationToken)
         {
             if (request.RecomendatorId != null)
             {
-                await ValidateRecomendator(request.RecomendatorId.Value);
+                await _distributorService.ValidateRecomendatorAsync(request.RecomendatorId.Value);
             }
+
             var idCard = new IdCard();
-            idCard.Create(request.IdCard.IdCardType, request.IdCard.DocSeries, request.IdCard.DocNum, request.IdCard.ReleaseDate, request.IdCard.ExpirationDate, request.IdCard.IdNumber, request.IdCard.IssuingAgency);
+            idCard.Create(request.IdCard.IdCardType, request.IdCard.DocSeries, request.IdCard.DocNum, request.IdCard.ReleaseDate,
+                          request.IdCard.ExpirationDate, request.IdCard.IdNumber, request.IdCard.IssuingAgency);
 
             var contact = new Contact();
             contact.Create(request.Contact.ContactType, request.Contact.ContactInfo);
@@ -38,35 +45,31 @@ namespace Application.DistributorManagement.Commands.Create
 
                 if (recomendator == null)
                 {
-                    throw new KeyNotFoundException($"Recomendator was not found for Id :{request.RecomendatorId}");
+                    throw new KeyNotFoundException($"Recomendator was not found for Id: {request.RecomendatorId}");
+                }
+            }
+
+            byte[]? picture = null;
+
+            if (request.Picture != null)
+            {
+                if (request.Picture.Length > 0)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        request.Picture.CopyTo(ms);
+                        picture = ms.ToArray();
+                    }
                 }
             }
 
             var distributor = new Distributor();
-            distributor.Create(request.FirstName, request.LastName, request.BirthDate, request.Gender, string.Empty, idCard, contact, address, request.RecomendatorId);
+            distributor.Create(request.FirstName, request.LastName, request.BirthDate, request.Gender, picture, idCard, contact, address, request.RecomendatorId);
 
             await _distributorRepository.InsertAsync(distributor);
             await _unitOfWork.SaveAsync();
 
             return Unit.Value;
-        }
-
-        private async Task ValidateRecomendator(Guid recomendatorId)
-        {
-            var recomendationCount = _distributorRepository.Query(x => x.RecomendatorId == recomendatorId).Count();
-
-            if (recomendationCount > 2)
-            {
-                throw new InvalidOperationException($"Distributor with Id:{recomendatorId} has already used all his/her recomendations");
-            }
-
-            var secondLevel = await _distributorRepository.OfIdAsync(recomendatorId);
-            var sixthLevel = secondLevel?.Recomendator?.Recomendator?.Recomendator?.Recomendator;
-
-            if (sixthLevel != null)
-            {
-                throw new InvalidOperationException($"There is allowed 5 level hierarchy of recomendations");
-            }
         }
     }
 }

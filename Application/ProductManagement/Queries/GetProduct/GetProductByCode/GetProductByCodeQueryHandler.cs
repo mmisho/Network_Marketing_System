@@ -14,11 +14,12 @@ namespace Application.ProductManagement.Queries.GetProduct.GetProductByCode
         {
             _productRepository = productRepository;
         }
+
         public async Task<GetProductByCodeQueryResponse> Handle(GetProductByCodeQueryRequest request, CancellationToken cancellationToken)
         {
             var product = await _productRepository.Query(x => x.Code == request.Code).FirstOrDefaultAsync();
 
-            if ( product == null )
+            if (product == null)
             {
                 throw new KeyNotFoundException($"Product was not found with Code {request.Code}");
             }

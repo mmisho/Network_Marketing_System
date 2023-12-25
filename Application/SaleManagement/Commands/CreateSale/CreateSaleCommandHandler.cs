@@ -26,6 +26,7 @@ namespace Application.SaleManagement.Commands.CreateSale
             _productRepository = productRepository;
             _unitofWork = unitofWork;
         }
+
         public async Task<Unit> Handle(CreateSaleCommand request, CancellationToken cancellationToken)
         {
             var distrubutor = await _distributorRepository.OfIdAsync(request.DistributorId);
@@ -35,7 +36,7 @@ namespace Application.SaleManagement.Commands.CreateSale
                 throw new KeyNotFoundException($"Distributor was not found for Id: {request.DistributorId}");
             }
 
-            var product = await _productRepository.Query(x=> x.Code == request.ProductCode).FirstOrDefaultAsync();
+            var product = await _productRepository.Query(x => x.Code == request.ProductCode).FirstOrDefaultAsync();
 
             if (product == null)
             {
@@ -43,7 +44,7 @@ namespace Application.SaleManagement.Commands.CreateSale
             }
 
             var sale = new Sale();
-            sale.Create(distrubutor, request.SaleDate, product, request.cost,request.UnitPrice, request.Price);
+            sale.Create(distrubutor, request.SaleDate, product, request.Cost, request.UnitPrice, request.Price);
 
             await _saleRepository.InsertAsync(sale);
             await _unitofWork.SaveAsync();

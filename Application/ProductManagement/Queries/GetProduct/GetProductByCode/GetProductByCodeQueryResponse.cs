@@ -1,5 +1,4 @@
-﻿
-using Application.ProductManagement.Dtos;
+﻿using Application.ProductManagement.Dtos;
 
 namespace Application.ProductManagement.Queries.GetProduct.GetProductByCode
 {

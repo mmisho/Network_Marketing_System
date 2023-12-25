@@ -23,15 +23,6 @@ namespace Infrastructure.TypeConfigurations.DistributorTypeConfiguration
 
             builder.Property(x=> x.Gender)
                 .IsRequired();
-
-            builder.HasOne(x => x.IdCardInfo)
-                .WithOne();
-
-            builder.HasOne(x => x.Contact)
-                .WithOne();
-
-            builder.HasOne(x => x.Address)
-                .WithOne();
         }
     }
 }

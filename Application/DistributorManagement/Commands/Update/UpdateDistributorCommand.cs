@@ -1,6 +1,7 @@
 ﻿using Application.DistributorManagement.Models;
 using Domain.DistributorManagement.Enum;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace Application.DistributorManagement.Commands.Update
 {
@@ -11,11 +12,11 @@ namespace Application.DistributorManagement.Commands.Update
         public string LastName { get; set; } = string.Empty;
         public DateTime BirthDate { get; set; }
         public GenderEnum Gender { get; set; }
-        public string Picture { get; set; } = string.Empty;
+        public IFormFile? Picture { get; set; }
         public IdCardModel IdCard { get; set; } = new();
         public ContactModel Contact { get; set; } = new();
         public AddressModel Address { get; set; } = new();
-        public Guid? RecomendatorId  { get; set; }
+        public Guid? RecomendatorId { get; set; }
 
         public void SetId(Guid Id)
         {

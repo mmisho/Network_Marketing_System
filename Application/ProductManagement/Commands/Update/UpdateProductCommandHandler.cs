@@ -19,11 +19,12 @@ namespace Application.ProductManagement.Commands.Update
             _unitOfWork = unitOfWork;
             _productService = productService;
         }
+
         public async Task<Unit> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
         {
             var product = await _productRepository.OfIdAsync(request.Id);
 
-            if ( product == null)
+            if (product == null)
             {
                 throw new KeyNotFoundException($"Product was not found for Id: {request.Id}");
             }

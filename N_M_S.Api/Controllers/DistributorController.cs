@@ -43,7 +43,7 @@ namespace N_M_S.Api.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> UpdateAsync([FromRoute] Guid id, [FromBody] UpdateDistributorCommand command)
+        public async Task<ActionResult> UpdateAsync([FromRoute] Guid id, [FromForm] UpdateDistributorCommand command)
         {
             command.SetId(id);
             _ = await Mediator.Send(command);

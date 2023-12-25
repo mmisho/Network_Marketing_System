@@ -14,9 +14,10 @@ namespace Application.SaleManagement.Dtos
             Cost = sale.Cost;
             Price = sale.Price;
         }
-        public  DistributorBaseDtoModel Distributor { get; private set; }
+
+        public DistributorBaseDtoModel Distributor { get; private set; }
         public DateTime SaleDate { get; private set; }
-        public  ProductDtoModel Product { get; private set; }
+        public ProductDtoModel Product { get; private set; }
         public decimal Cost { get; private set; }
         public decimal Price { get; private set; }
     }

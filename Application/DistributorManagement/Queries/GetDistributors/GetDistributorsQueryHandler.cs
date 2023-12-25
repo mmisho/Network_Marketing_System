@@ -13,6 +13,7 @@ namespace Application.DistributorManagement.Queries.GetDistributors
         {
             _distributorRepository = distributorRepository;
         }
+
         public async Task<GetDistributorsQueryResponse> Handle(GetDistributorsQueryRequest request, CancellationToken cancellationToken)
         {
             var distributors = await _distributorRepository.Query().ToListAsync();

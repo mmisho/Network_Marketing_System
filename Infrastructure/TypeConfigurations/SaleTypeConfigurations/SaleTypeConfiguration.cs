@@ -10,22 +10,16 @@ namespace Infrastructure.TypeConfigurations.SaleTypeConfigurations
         {
             builder.HasKey(x => x.Id);
 
-            builder.Property(x=> x.Distributor)
+            builder.Property(x => x.SaleDate)
                 .IsRequired();
 
-            builder.Property(x=> x.SaleDate)
+            builder.Property(x => x.Cost)
                 .IsRequired();
 
-            builder.Property(x => x.Product)
+            builder.Property(x => x.UnitPrice)
                 .IsRequired();
 
-            builder.Property(x=> x.Cost)
-                .IsRequired();
-
-            builder.Property(x=> x.UnitPrice)
-                .IsRequired();
-
-            builder.Property(x=> x.Price)
+            builder.Property(x => x.Price)
                 .IsRequired();
         }
     }

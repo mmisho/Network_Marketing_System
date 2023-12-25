@@ -1,9 +1,9 @@
 ﻿using Domain.Shared;
+
 namespace Domain.ProductManagement
 {
     public class Product : BaseEntity<Guid>
     {
-
         public Product()
         {
             Name = string.Empty;

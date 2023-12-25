@@ -11,7 +11,7 @@ namespace Application.ProductManagement.Commands.Update
 
         public void SetId(Guid id)
         {
-            Id = id;   
+            Id = id;
         }
     }
 }

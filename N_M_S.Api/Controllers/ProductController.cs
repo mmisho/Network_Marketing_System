@@ -1,7 +1,4 @@
-﻿using Application.DistributorManagement.Commands.Create;
-using Application.DistributorManagement.Commands.Delete;
-using Application.DistributorManagement.Commands.Update;
-using Application.ProductManagement.Commands.Create;
+﻿using Application.ProductManagement.Commands.Create;
 using Application.ProductManagement.Commands.Delete.DeleteById;
 using Application.ProductManagement.Commands.Update;
 using Application.ProductManagement.Queries.GetProduct.GetProductByCode;
@@ -19,7 +16,7 @@ namespace N_M_S.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<GetProductsQueryResponse>> GetAllAsync()
         {
-            var request = new GetProductsQueryResponse();
+            var request = new GetProductsQueryRequest();
 
             return Ok(await Mediator.Send(request));
         }

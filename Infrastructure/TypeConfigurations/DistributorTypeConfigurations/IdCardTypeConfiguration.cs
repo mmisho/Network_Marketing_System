@@ -13,16 +13,16 @@ namespace Infrastructure.TypeConfigurations.DistributorTypeConfigurations
             builder.Property(x => x.IdCardType)
                 .IsRequired();
 
-            builder.Property(x=> x.DocSeries)
+            builder.Property(x => x.DocSeries)
                 .HasMaxLength(10);
 
-            builder.Property(x=> x.DocNum)
+            builder.Property(x => x.DocNum)
                 .HasMaxLength(10);
 
-            builder.Property(x=> x.ReleaseDate)
+            builder.Property(x => x.ReleaseDate)
                 .IsRequired();
 
-            builder.Property(x=> x.ExpirationDate)
+            builder.Property(x => x.ExpirationDate)
                 .IsRequired();
 
             builder.HasIndex(x => x.IdNumber)
@@ -34,6 +34,12 @@ namespace Infrastructure.TypeConfigurations.DistributorTypeConfigurations
 
             builder.Property(x => x.IssuingAgency)
                 .HasMaxLength(100);
+
+            builder.HasOne(d => d.Distributor)
+                .WithOne(a => a.IdCardInfo)
+                .HasForeignKey<IdCard>(a => a.DistributorId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired();
         }
     }
 }

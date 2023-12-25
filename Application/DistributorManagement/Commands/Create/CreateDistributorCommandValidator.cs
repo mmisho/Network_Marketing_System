@@ -15,8 +15,8 @@ namespace Application.DistributorManagement.Commands.Create
             RuleFor(x => x.IdCard.DocSeries).MaximumLength(10);
             RuleFor(x => x.IdCard.IdNumber).NotEmpty().NotNull().MaximumLength(50);
             RuleFor(x => x.IdCard.IssuingAgency).MaximumLength(100);
-            RuleFor(x=> x.Contact.ContactInfo).NotEmpty().NotNull().MaximumLength(100);
-            RuleFor(x=> x.Address.AddressInfo).NotEmpty().NotNull().MaximumLength(100);
+            RuleFor(x => x.Contact.ContactInfo).NotEmpty().NotNull().MaximumLength(100);
+            RuleFor(x => x.Address.AddressInfo).NotEmpty().NotNull().MaximumLength(100);
         }
     }
 }

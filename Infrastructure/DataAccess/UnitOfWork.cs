@@ -4,9 +4,20 @@ namespace Infrastructure.DataAccess
 {
     public class UnitOfWork : IUnitOfWork
     {
-        public Task SaveAsync()
+        private readonly EFDbContext _dbContext;
+
+        public UnitOfWork(EFDbContext dbContext)
         {
-            throw new NotImplementedException();
+            _dbContext = dbContext;
+        }
+
+        public async Task SaveAsync()
+        {
+            using var transaction = await _dbContext.Database.BeginTransactionAsync();
+
+            await _dbContext.SaveChangesAsync();
+
+            await transaction.CommitAsync();
         }
     }
 }

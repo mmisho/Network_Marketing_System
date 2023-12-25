@@ -2,7 +2,7 @@
 
 namespace Domain.ProductManagement.Repository
 {
-    public interface IProductRepository : IRepository<Product>  
+    public interface IProductRepository : IRepository<Product>
     {
     }
 }

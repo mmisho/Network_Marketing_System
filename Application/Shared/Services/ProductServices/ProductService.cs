@@ -1,9 +1,5 @@
-﻿
-
-using Domain.ProductManagement.Repository;
-using MediatR;
+﻿using Domain.ProductManagement.Repository;
 using Microsoft.EntityFrameworkCore;
-using System.Data.SqlTypes;
 
 namespace Application.Shared.Services.ProductServices
 {
@@ -20,7 +16,7 @@ namespace Application.Shared.Services.ProductServices
         {
             if (await NotUniqueProductCode(code))
             {
-                throw new InvalidOperationException($"A product is allready registered with the code {code}");
+                throw new InvalidOperationException($"A product is allready registered with the code: {code}");
             }
         }
         private async Task<bool> NotUniqueProductCode(string code)

@@ -15,6 +15,7 @@ namespace Application.ProductManagement.Commands.Delete.DeleteByCode
             _productRepository = productRepository;
             _unitOfWork = unitOfWork;
         }
+
         public async Task<Unit> Handle(DeleteProductByCodeCommand request, CancellationToken cancellationToken)
         {
             var product = await _productRepository.Query(x => x.Code == request.Code).FirstOrDefaultAsync();

@@ -2,7 +2,7 @@
 
 namespace Application.DistributorManagement.Queries.GetDistributor
 {
-    public class GetDistributorQueryResponse 
+    public class GetDistributorQueryResponse
     {
         public DistributorDtoModel? Distributor { get; set; }
     }

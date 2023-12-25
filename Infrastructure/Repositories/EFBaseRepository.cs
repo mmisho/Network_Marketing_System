@@ -14,6 +14,7 @@ namespace Infrastructure.Repositories
         {
             _context = context;
         }
+
         public void Delete(TAggregateRoot aggregateRoot)
         {
             _context.Remove(aggregateRoot);

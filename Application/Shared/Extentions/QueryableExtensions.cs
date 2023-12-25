@@ -10,12 +10,13 @@ namespace Application.Shared.Extentions
             {
                 return source;
             }
+
             if (filter == null)
             {
                 return source;
             }
 
-            return source.Where(predicate); 
+            return source.Where(predicate);
         }
     }
 }

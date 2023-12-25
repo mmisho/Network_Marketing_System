@@ -1,5 +1,4 @@
-﻿
-using Domain.DistributorManagement;
+﻿using Domain.DistributorManagement;
 using Domain.DistributorManagement.Enum;
 
 namespace Application.DistributorManagement.Dtos
@@ -11,11 +10,16 @@ namespace Application.DistributorManagement.Dtos
         public string LastName { get; protected set; } = string.Empty;
         public DateTime BirthDate { get; protected set; }
         public GenderEnum Gender { get; protected set; }
-        public string Picture { get; protected set; } = string.Empty;
+        public byte[]? Picture { get; protected set; }
 
         public static DistributorBaseDtoModel MapToDto(Distributor distributor)
         {
-            return  DistributorDtoModel.MapToDto(distributor, false);
+            return DistributorDtoModel.MapToDto(distributor, false);
+        }
+
+        public void SetPicture(byte[] picture)
+        {
+            Picture = picture;
         }
     }
 }

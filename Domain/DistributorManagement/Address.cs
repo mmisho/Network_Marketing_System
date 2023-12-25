@@ -12,6 +12,28 @@ namespace Domain.DistributorManagement
 
         public void Create(AddressTypeEnum addressType, string addressInfo)
         {
+            ValidateAddress(addressInfo);
+
+            AddressType = addressType;
+            AddressInfo = addressInfo;
+        }
+
+        public void ChangeDetails(AddressTypeEnum addressType, string addressInfo)
+        {
+            ValidateAddress(addressInfo);
+
+            AddressType = addressType;
+            AddressInfo = addressInfo;
+        }
+
+        public override Guid Id { get; set; }
+        public AddressTypeEnum AddressType { get; private set; }
+        public string AddressInfo { get; private set; }
+        public virtual Distributor? Distributor { get; private set; }
+        public Guid DistributorId { get; private set; }
+
+        private void ValidateAddress(string addressInfo)
+        {
             if (string.IsNullOrEmpty(addressInfo))
             {
                 throw new ArgumentNullException($"{nameof(addressInfo)} cannot be null or empty");
@@ -21,13 +43,6 @@ namespace Domain.DistributorManagement
             {
                 throw new ArgumentOutOfRangeException($"{nameof(addressInfo)} length should not be greater than 100");
             }
-
-            AddressType = addressType;
-            AddressInfo = addressInfo;
         }
-
-        public override Guid Id { get; set; }
-        public AddressTypeEnum AddressType { get; private set; }
-        public string AddressInfo { get; private set; }
     }
 }

@@ -1,11 +1,14 @@
 ﻿using Application.DistributorManagement.Commands.Create;
+using Application.Shared.Services.DistributorServices;
 using Application.Shared.Services.ProductServices;
+using Domain.BonusManagement.Repository;
 using Domain.DistributorManagement.Repository;
 using Domain.ProductManagement.Repository;
 using Domain.SaleManagement.Repository;
 using Domain.Shared;
 using FluentValidation;
 using Infrastructure.DataAccess;
+using Infrastructure.Repositories.BonusManagement;
 using Infrastructure.Repositories.DistributorManagement;
 using Infrastructure.Repositories.ProductManagement;
 using Infrastructure.Repositories.SaleManagement;
@@ -21,7 +24,7 @@ namespace N_M_S.Api
 
         public DependencyResolver(IConfiguration configuration)
         {
-            _dbConnection = configuration.GetConnectionString("MyWebApiConection");
+            _dbConnection = configuration.GetConnectionString("MNSWebApiConnection");
         }
 
         public IServiceCollection Resolve(IServiceCollection services)
@@ -34,8 +37,14 @@ namespace N_M_S.Api
             services.AddScoped<IDistributorRepository, DistributorRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ISaleRepository, SaleRepository>();
+            services.AddScoped<IBonusRepository, BonusRepository>();
+
+            services.AddScoped<IDistributorService, DistributorServices>();
             services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();  
+
+
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddDbContext<EFDbContext>(opt =>
                  opt.UseSqlServer(_dbConnection).UseLazyLoadingProxies());

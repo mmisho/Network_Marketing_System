@@ -31,6 +31,7 @@ namespace Domain.SaleManagement
             UnitPrice = unitPrice;
             Price = price;
         }
+
         public override Guid Id { get; set; }
         public virtual Distributor Distributor { get; private set; }
         public Guid DistributorId { get; private set; }
