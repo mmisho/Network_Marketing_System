@@ -1,6 +1,7 @@
 ﻿using Domain.DistributorManagement.Repository;
 using Domain.Shared;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.DistributorManagement.Commands.Delete
 {
@@ -24,6 +25,17 @@ namespace Application.DistributorManagement.Commands.Delete
             if (distributor == null)
             {
                 throw new KeyNotFoundException($"Distributor was not found for Id: {request.DistributorId}");
+            }
+
+            var dependentDistributors = await _distributorRepository.Query(x => x.RecomendatorId == request.DistributorId).ToListAsync();
+
+            if (dependentDistributors != null)
+            {
+                foreach (var d in dependentDistributors)
+                {
+                    d.ChangeDetails(d.FirstName, d.LastName, d.BirthDate, d.Gender, d.Picture, null);
+                    _distributorRepository.Update(d);
+                }
             }
 
             _distributorRepository.Delete(distributor);
