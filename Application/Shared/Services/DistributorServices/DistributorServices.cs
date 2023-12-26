@@ -27,7 +27,7 @@ namespace Application.Shared.Services.DistributorServices
                 throw new InvalidOperationException($"Distributor with Id: {recomendatorId} has already used all his/her recomendations");
             }
 
-            var sixthLevel = recomendator?.Recomendator?.Recomendator?.Recomendator?.Recomendator?.Recomendator;
+            var sixthLevel = recomendator?.Recomendator?.Recomendator?.Recomendator?.Recomendator;
 
             if (sixthLevel != null)
             {
